@@ -5,8 +5,9 @@ async function crateApolloGraphqlServer(){
     // Create GraphQL server
   const gqlServer = new ApolloServer({
     typeDefs: `
+    ${user.typeDefs}
       type Query {
-        hello:String
+        ${user.queries}
       }
         type Mutation{
         ${user.mutations}
@@ -14,11 +15,12 @@ async function crateApolloGraphqlServer(){
     `,
     resolvers: {
       Query: {
-        ...user.resolvers.queries
+        ...user.resolvers.queries,
       },
       Mutation:{
         ...user.resolvers.mutations
       }
+
     }
   });
 
