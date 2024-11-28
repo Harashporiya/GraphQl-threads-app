@@ -1,8 +1,9 @@
 import express from "express";
-const {expressMiddleware} =require("@apollo/server/express4")
+const {expressMiddleware} = require("@apollo/server/express4")
 import bodyParser from "body-parser";
 import cors from "cors";
 import crateApolloGraphqlServer from "./graphql";
+
 
 
 async function init() {
