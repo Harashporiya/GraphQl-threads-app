@@ -3,6 +3,7 @@ const {expressMiddleware} = require("@apollo/server/express4")
 import bodyParser from "body-parser";
 import cors from "cors";
 import crateApolloGraphqlServer from "./graphql";
+import UserService from "./services/user";
 
 
 
@@ -20,7 +21,18 @@ async function init() {
   app.use(cors())
 
   // GraphQL endpoint
-  app.use("/graphql", expressMiddleware(await crateApolloGraphqlServer()))
+  app.use("/graphql", expressMiddleware(await crateApolloGraphqlServer(), {
+    //@ts-ignore
+    context: async({req})=>{
+       const token = req.headers['token']
+       try {
+        const user = UserService.decodeJwtToken(token)
+        return {user}
+       } catch (error) {
+        return {}
+       }
+    }
+  }))
 
   app.listen(PORT, () => {
     console.log(`Server Started At PORT: ${PORT}`);
