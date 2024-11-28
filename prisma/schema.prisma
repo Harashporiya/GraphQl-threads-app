@@ -16,7 +16,7 @@ datasource db {
 model User{
   id String @id @default(uuid())
   firstName String @map("first_name") // code base ka ander firstName hoga lekin dataBase ka ander first_name jaya  ga
-  lastName String @map("last_name")
+  lastName String? @map("last_name")
   profileImageURL String? @map("profile_image_url")
   email String @unique
   password String
